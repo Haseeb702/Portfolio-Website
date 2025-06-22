@@ -1,28 +1,10 @@
-import React, { useState, createRef } from "react";
+import React, { createRef } from "react";
 import "./ExperienceCard.scss";
-import ColorThief from "colorthief";
 
 export default function ExperienceCard({ cardInfo, isDark }) {
-  const [colorArrays, setColorArrays] = useState([]);
   const imgRef = createRef();
 
-  function getColorArrays() {
-    const colorThief = new ColorThief();
-    if (imgRef.current && imgRef.current.complete) {
-      try {
-        const color = colorThief.getColor(imgRef.current);
-        setColorArrays(color);
-      } catch (err) {
-        console.warn("ColorThief failed:", err);
-      }
-    }
-  }
 
-  function rgb(values) {
-    return typeof values === "undefined" || values === null
-      ? "rgb(45, 45, 45)" // fallback color
-      : "rgb(" + values.join(", ") + ")";
-  }
 
   const GetDescBullets = ({ descBullets, isDark }) => {
     return descBullets
@@ -53,7 +35,6 @@ export default function ExperienceCard({ cardInfo, isDark }) {
             className="experience-roundedimg"
             src={cardInfo.companylogo}
             alt={cardInfo.company}
-            onLoad={getColorArrays}
           />
         )}
       </div>
